@@ -23,8 +23,11 @@
         данных, а также принимаете <a href="https://ya.ru">пользовательское соглашение</a>
     </string>
 
-
-
+    <string name="activity">Активность</string>
+    <string name="profile">Профиль</string>
+    <string name="personal">Мои</string>
+    <string name="common">Пользовательские</string>
+    <string name="no_activities">Нет активности</string>
 
     <string name="temp">Временный текст</string>
 </resources>

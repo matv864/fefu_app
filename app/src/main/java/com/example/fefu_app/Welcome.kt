@@ -23,20 +23,19 @@ class Welcome : AppCompatActivity(), View.OnClickListener {
         registrationIntent = Intent(this, Registration::class.java)
         loginIntent = Intent(this, Login::class.java)
 
-        registrationButton = findViewById(R.id.registrationButton)
+        registrationButton = findViewById(R.id.registration_button)
         registrationButton.setOnClickListener(this)
 
-        loginButton = findViewById(R.id.loginButton)
+        loginButton = findViewById(R.id.login_button)
         loginButton.setOnClickListener(this)
 
     }
 
     override fun onClick(view: View) {
-        if (view.id == R.id.registrationButton) {
+        if (view.id == R.id.registration_button) {
             startActivity(registrationIntent)
-
         }
-        if (view.id == R.id.loginButton) {
+        if (view.id == R.id.login_button) {
             startActivity(loginIntent)
         }
     }

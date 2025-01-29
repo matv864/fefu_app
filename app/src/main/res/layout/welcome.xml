@@ -8,6 +8,7 @@
 
 
     <ImageView
+        android:contentDescription="@string/temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@mipmap/welcome_screen_image"
@@ -63,7 +64,7 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/registrationButton"
+        android:id="@+id/registration_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="30dp"
@@ -92,7 +93,7 @@
         app:layout_constraintGuide_percent="0.85"/>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/loginButton"
+        android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/button_guideline"
