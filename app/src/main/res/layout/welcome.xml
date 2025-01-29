@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".MainActivity"
+    tools:context=".Welcome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -64,6 +64,7 @@
 
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/registrationButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:width="30dp"
@@ -71,7 +72,7 @@
 
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        app:cornerRadius="30px"
+        app:cornerRadius="30dp"
 
 
         android:text="@string/start_registration"
@@ -91,13 +92,14 @@
         app:layout_constraintGuide_percent="0.85"/>
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/loginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/button_guideline"
 
         android:text="@string/have_account"
         android:textColor="@color/purple"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:textStyle="bold"
         android:fontFamily="sans-serif"
 
