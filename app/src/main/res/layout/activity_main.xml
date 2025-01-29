@@ -7,20 +7,30 @@
     android:layout_height="match_parent"
     android:background="@color/white">
 
-<!--    background image here-->
 
-    <androidx.constraintlayout.widget.Guideline
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/logo_guideline"
+        android:src="@mipmap/welcome_screen_image"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="170dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintBottom_toTopOf="@id/for_image_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/for_image_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.25"/>
-
-<!--    logo here-->
-
+        app:layout_constraintGuide_percent="0.41"/>
 
 
     <TextView
+        android:id="@+id/main_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/text_guideline"
@@ -33,11 +43,12 @@
         android:textAlignment="center" />
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/text_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text_guideline"
+
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.57"/>
+        app:layout_constraintGuide_percent="0.61"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -73,9 +84,9 @@
         style="@style/Widget.MaterialComponents.Button.TextButton"
         />
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/button_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/button_guideline"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.85"/>
 
