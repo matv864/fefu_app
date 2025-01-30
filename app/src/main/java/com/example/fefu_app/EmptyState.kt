@@ -1,7 +1,6 @@
 package com.example.fefu_app
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -19,10 +18,9 @@ class EmptyState : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, ProfileFragment(), "ProfileFragment")
-                .add(R.id.fragment_container, ActivityFragment(), "ActivityFragment")
+                .add(R.id.fragment_container, ActivityFragment(true), "ActivityFragment")
                 .commit()
             switchFragment(activities_is_selected = true)
-            Log.e("tag", "it's really null")
         }
 
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -39,10 +37,34 @@ class EmptyState : AppCompatActivity() {
                 else -> false
             }
         }
+        val TopNavigationView = findViewById<BottomNavigationView>(R.id.top_navigation)
+        TopNavigationView.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.personal_activities -> {
+                    switchFragment(
+                        activities_is_selected = true,
+                        personal_activities_is_selected = true
+                    )
+                    true
+                }
+                R.id.common_activities -> {
+                    switchFragment(
+                        activities_is_selected = true,
+                        personal_activities_is_selected = false
+                    )
+                    true
+                }
+                else -> false
+            }
+        }
 
     }
 
-    private fun switchFragment(activities_is_selected: Boolean) {
+    private fun switchFragment(
+        activities_is_selected: Boolean? = null,
+        personal_activities_is_selected: Boolean? = null
+    ) {
+        // I couldn't make overloading
         var activities_fragment: Fragment? = supportFragmentManager.findFragmentByTag("ActivityFragment")
         var profile_fragment: Fragment? = supportFragmentManager.findFragmentByTag("ProfileFragment")
 
@@ -51,18 +73,29 @@ class EmptyState : AppCompatActivity() {
             return
         }
 
-        if (activities_is_selected) {
-            supportFragmentManager.beginTransaction()
-                .show(activities_fragment)
-                .hide(profile_fragment)
-                .commit()
-        } else {
-            supportFragmentManager.beginTransaction()
-                .show(profile_fragment)
-                .hide(activities_fragment)
-                .commit()
+        if (activities_is_selected != null) {
+            if (activities_is_selected) {
+                supportFragmentManager.beginTransaction()
+                    .show(activities_fragment)
+                    .hide(profile_fragment)
+                    .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .show(profile_fragment)
+                    .hide(activities_fragment)
+                    .commit()
+            }
         }
 
-
+        if (personal_activities_is_selected != null) {
+            supportFragmentManager.beginTransaction()
+                .remove(activities_fragment)
+                .add(
+                    R.id.fragment_container,
+                    ActivityFragment(personal_activities_is_selected),
+                    "ActivityFragment"
+                )
+                .commit()
+        }
     }
 }
