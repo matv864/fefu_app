@@ -6,4 +6,5 @@
     <color name="light_gray">#C0C0C0</color>
     <color name="blue">#30f</color>
     <color name="purple">#339</color>
+    <color name="transparent">#00000000</color>
 </resources>
