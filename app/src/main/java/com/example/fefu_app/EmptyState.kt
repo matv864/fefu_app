@@ -37,7 +37,6 @@ class EmptyState : AppCompatActivity() {
                 else -> false
             }
         }
-
     }
 
     private fun switchFragment(activities_is_selected: Boolean? = null) {
