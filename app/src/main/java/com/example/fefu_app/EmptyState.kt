@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fefu_app.fragment.ActivityFragment
+import com.example.fefu_app.fragment.DetailsActivityFragment
 import com.example.fefu_app.fragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -14,6 +15,27 @@ class EmptyState : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.emptystate)
+
+        var bundle: Bundle? = intent.extras
+        var activity_id: Int?
+        if (bundle != null) {
+            activity_id = bundle.getInt("activity_id")
+            // case with activity "activity details"
+            if (activity_id != null) {
+                if (savedInstanceState == null) {
+                    supportFragmentManager.beginTransaction()
+                        .add(
+                            R.id.fragment_container,
+                            DetailsActivityFragment(this, activity_id),
+                            "DetailsActivityFragment"
+                        )
+                        .commit()
+                    return
+                }
+            }
+        }
+
+
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
