@@ -20,8 +20,7 @@ class Login : AppCompatActivity(), View.OnClickListener {
         enableEdgeToEdge()
         setContentView(R.layout.login)
 
-        findViewById<TextView>(R.id.title)
-            .setText(getString(R.string.login_page))
+        findViewById<TextView>(R.id.title).text = getString(R.string.login_page)
 
         backButton = findViewById(R.id.back_button)
         backButton.setOnClickListener(this)

@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.fefu_app.fragment.ActivityFragment
+import com.example.fefu_app.fragment.ChangePasswordFragment
 import com.example.fefu_app.fragment.DetailsActivityFragment
 import com.example.fefu_app.fragment.ProfileFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -16,12 +17,14 @@ class EmptyState : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.emptystate)
 
-        var bundle: Bundle? = intent.extras
-        var activity_id: Int?
+        val bundle: Bundle? = intent.extras
+        val activity_id: Int?
+        val need_change_password: Boolean?
         if (bundle != null) {
-            activity_id = bundle.getInt("activity_id")
+            activity_id = bundle.getInt("activity_id", 0)
+            need_change_password = bundle.getBoolean("need_change_password")
             // case with activity "activity details"
-            if (activity_id != null) {
+            if (activity_id != 0) {
                 if (savedInstanceState == null) {
                     supportFragmentManager.beginTransaction()
                         .add(
@@ -33,6 +36,19 @@ class EmptyState : AppCompatActivity() {
                     return
                 }
             }
+            if (need_change_password == true) {
+                if (savedInstanceState == null) {
+                    supportFragmentManager.beginTransaction()
+                        .add(
+                            R.id.fragment_container,
+                            ChangePasswordFragment(this),
+                            "ChangePasswordFragment"
+                        )
+                        .commit()
+                    return
+                }
+            }
+
         }
 
 
@@ -62,8 +78,10 @@ class EmptyState : AppCompatActivity() {
     }
 
     private fun switchFragment(activities_is_selected: Boolean? = null) {
-        var activities_fragment: Fragment? = supportFragmentManager.findFragmentByTag("ActivityFragment")
-        var profile_fragment: Fragment? = supportFragmentManager.findFragmentByTag("ProfileFragment")
+        val activities_fragment: Fragment? =
+            supportFragmentManager.findFragmentByTag("ActivityFragment")
+        val profile_fragment: Fragment? =
+            supportFragmentManager.findFragmentByTag("ProfileFragment")
 
         if (activities_fragment == null || profile_fragment == null) {
             // check only for kotlin type checking

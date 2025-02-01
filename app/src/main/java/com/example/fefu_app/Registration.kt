@@ -20,8 +20,7 @@ class Registration : AppCompatActivity(), View.OnClickListener {
         enableEdgeToEdge()
         setContentView(R.layout.registration)
 
-        findViewById<TextView>(R.id.title)
-            .setText(getString(R.string.registration_page))
+        findViewById<TextView>(R.id.title).text = getString(R.string.registration_page)
 
         backButton = findViewById(R.id.back_button)
         backButton.setOnClickListener(this)
