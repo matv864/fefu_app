@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.fefu_app.EmptyState
 import com.example.fefu_app.R
-import com.example.fefu_app.fragment.ActivityEntity
+import com.example.fefu_app.entity.ActivityEntity
 
 
 class ActivityAdapter(activityList: List<ActivityEntity>, view: View) : RecyclerView.Adapter<ActivityAdapter.ActivityViewHolder>() {
@@ -28,10 +28,15 @@ class ActivityAdapter(activityList: List<ActivityEntity>, view: View) : Recycler
     override fun getItemCount(): Int = activityList.size
 
     inner class ActivityViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val mainTextView: TextView = itemView.findViewById(R.id.item_text)
+        private val item_distance: TextView = itemView.findViewById(R.id.item_distance)
+        private val item_type: TextView = itemView.findViewById(R.id.item_type)
+        private val item_date: TextView = itemView.findViewById(R.id.item_date)
 
         fun bind(activity: ActivityEntity) {
-            mainTextView.text = activity.text
+            item_distance.text = activity.distanceInMeters.toString()
+            item_type.text = activity.type
+            item_date.text = activity.date
+
 
             itemView.setOnClickListener {
                 val intent = Intent(view.context, EmptyState::class.java)

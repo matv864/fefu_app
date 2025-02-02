@@ -56,7 +56,7 @@ class EmptyState : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .add(R.id.fragment_container, ProfileFragment(), "ProfileFragment")
-                .add(R.id.fragment_container, ActivityFragment(), "ActivityFragment")
+                .add(R.id.fragment_container, ActivityFragment(this), "ActivityFragment")
                 .commit()
             switchFragment(activities_is_selected = true)
         }

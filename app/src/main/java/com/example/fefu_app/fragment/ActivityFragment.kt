@@ -6,24 +6,53 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.fefu_app.EmptyState
 import com.example.fefu_app.R
+import com.example.fefu_app.database.AppDatabase
+import com.example.fefu_app.entity.ActivityEntity
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlin.properties.Delegates
 
-class ActivityFragment: Fragment() {
+class ActivityFragment(emptyState: EmptyState) : Fragment() {
     var is_personal by Delegates.notNull<Boolean>()
+    val emptyState = emptyState
 
     lateinit var result_view: View
     lateinit var recycler_view: RecyclerView
     private lateinit var adapter: ActivityAdapter
     private var myList: List<ActivityEntity> = listOf()
+    private lateinit var db: AppDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        db = AppDatabase.getDatabase(emptyState)
+//        lifecycleScope.launch {
+//            withContext(Dispatchers.IO) {
+//                db.activityDao().insertActivities(
+//                    ActivityEntity(
+//                        id = (1..10000).random(),
+//                        type = "good",
+//                        distanceInMeters = 1,
+//                        timeInSeconds = 1,
+//                        startTime = 1,
+//                        endTime = 1,
+//                        date = "good date",
+//                        author = "admin",
+//                        comment = null
+//                    )
+//                )
+//            }
+//
+//        }
+
         result_view = inflater.inflate(R.layout.activity_fragment, container, false)
         recycler_view = result_view.findViewById(R.id.recycler_view)
 
@@ -58,12 +87,19 @@ class ActivityFragment: Fragment() {
 
 
     private fun setNewAdapter(){
-        myList = listOf(
-            ActivityEntity(id = 1, text = System.currentTimeMillis().toString()),
-            ActivityEntity(id = 2, text = "fuck"),
-            ActivityEntity(id = 3, text = "ok")
-        )
-        recycler_view.adapter = ActivityAdapter(myList, result_view)
+        lifecycleScope.launch {
+            myList = if (is_personal) {
+                withContext(Dispatchers.IO) {
+                    db.activityDao().getPersonalActivities("admin")
+                }
+            } else {
+                withContext(Dispatchers.IO) {
+                    db.activityDao().getUsersActivities("admin")
+                }
+            }
+            recycler_view.adapter = ActivityAdapter(myList, result_view)
+        }
+
 
 
     }
