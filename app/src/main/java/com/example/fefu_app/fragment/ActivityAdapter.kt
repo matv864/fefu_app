@@ -37,7 +37,6 @@ class ActivityAdapter(activityList: List<ActivityEntity>, view: View) : Recycler
             item_type.text = activity.type
             item_date.text = activity.date
 
-
             itemView.setOnClickListener {
                 val intent = Intent(view.context, EmptyState::class.java)
                 intent.putExtra("activity_id", activity.id)
